@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "708200642604",
+    "project_id": "fuel-management-26729",
+    "storage_bucket": "fuel-management-26729.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708200642604:android:d0aea0a4c185b18b61f989",
+        "android_client_info": {
+          "package_name": "com.scalar.fuelmanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708200642604-nsdlq36jrl35phm0bp7ufesps0pddicc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGjDV5pAwurZaNHQG8p4q1cCFXvo_aukc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708200642604-nsdlq36jrl35phm0bp7ufesps0pddicc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708200642604:android:340542c32f23794e61f989",
+        "android_client_info": {
+          "package_name": "com.scalar.fuelmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708200642604-nsdlq36jrl35phm0bp7ufesps0pddicc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGjDV5pAwurZaNHQG8p4q1cCFXvo_aukc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708200642604-nsdlq36jrl35phm0bp7ufesps0pddicc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

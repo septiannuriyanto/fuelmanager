@@ -1,0 +1,18 @@
+List<String> uoilList = [
+  'COLLY',
+  'PKG',
+  'ASSY',
+  'DRUM',
+  'EACH',
+  'BOX',
+  'SET',
+  'TON',
+  'SHEET',
+  'BOTL',
+  'KG',
+  'MAP',
+  'TIE',
+  'IBC',
+  'BNDL',
+  'REAM',
+];
