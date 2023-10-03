@@ -4,6 +4,8 @@ final String today = DateFormat.yMMMMd('en_US').format(DateTime.now());
 final String formattedToday = DateFormat('yyyyMMdd').format(DateTime.now());
 final String formattedTodayTwoString =
     DateFormat('yyMMdd').format(DateTime.now());
+final String formattedTodayTwoStringRev =
+    DateFormat('ddMMyy').format(DateTime.now());
 final String formattedPeriod = DateFormat('yyyyMM').format(DateTime.now());
 
 String formattedDate(DateTime date) {

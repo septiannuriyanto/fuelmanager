@@ -6,6 +6,7 @@ import 'package:fuelmanager/widgets/custom_appbar.dart';
 import 'package:fuelmanager/widgets/custom_button.dart';
 import 'package:fuelmanager/widgets/custom_logintext.dart';
 import 'package:fuelmanager/widgets/custom_snackbar.dart';
+import 'package:fuelmanager/widgets/custom_textfield.dart';
 import 'package:get/get.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -24,50 +25,56 @@ class SignupScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(12.0),
                     child: Text("Silahkan isi data - data berikut"),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 6,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: CustomLoginTextField(
-                        hintText: "Nama Lengkap", onChanged: (p0) => name = p0),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CustomLoginTextField(
-                      hintText: "Nomor Induk Karyawan",
-                      onChanged: (p0) => username = p0,
+                    child: CustomTextField(
+                      hint: "Nama Lengkap",
+                      onFieldChanged: (p0) => name = p0,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: CustomLoginTextField(
-                        hintText: "Alamat Email",
-                        onChanged: (p0) => email = p0),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CustomLoginTextField(
-                        hintText: "Perusahaan",
-                        onChanged: (p0) => company = p0),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CustomLoginTextField(
-                      hintText: "Password",
-                      onChanged: (p0) => password = p0,
+                    child: CustomTextField(
+                      hint: "Nomor Induk Karyawan",
+                      onFieldChanged: (p0) => username = p0,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: CustomLoginTextField(
-                      hintText: "Konfirmasi Password",
-                      onChanged: (p0) => confPassword = p0,
-                    ),
+                    child: CustomTextField(
+                        hint: "Alamat Email",
+                        onFieldChanged: (p0) => email = p0),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomTextField(
+                        hint: "Perusahaan",
+                        onFieldChanged: (p0) => company = p0),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomPasswordField(
+                        hint: "Password",
+                        onChanged: (p0) => password = p0,
+                      )),
+                  Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomPasswordField(
+                        hint: "Konfirmasi Password",
+                        onChanged: (p0) => confPassword = p0,
+                      )
+
+                      // CustomLoginTextField(
+                      //   hintText: "Konfirmasi Password",
+                      //   onChanged: (p0) => confPassword = p0,
+                      // ),
+                      ),
                   Padding(
                     padding: const EdgeInsets.only(top: 40.0),
                     child: CustomRRButton(
@@ -79,17 +86,15 @@ class SignupScreen extends StatelessWidget {
                         onTap: () async {
                           NewUserModel newUserModel = NewUserModel(
                               appUserData: AppUserData(
-                                  company: company,
-                                  ID: username!.toUpperCase(),
-                                  name: name,
-                                  email: email,
-                                  role: "new"),
+                                company: company,
+                                ID: username!.toUpperCase(),
+                                name: name,
+                                email: email,
+                                role: "new",
+                                imgUrl: "",
+                                token: "",
+                              ),
                               password: password!);
-
-                          print(newUserModel.appUserData.ID);
-                          print(newUserModel.appUserData.name);
-                          print(newUserModel.appUserData.email);
-                          print(newUserModel.password);
                           bool? checkUserData =
                               validateRegistration(newUserModel);
                           if (checkUserData != true) {

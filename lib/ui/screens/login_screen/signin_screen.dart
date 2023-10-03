@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fuelmanager/models/user_model.dart';
-import 'package:fuelmanager/ui/screens/home%20screen/home_screen.dart';
 import 'package:fuelmanager/constant/theme.dart';
 import 'package:fuelmanager/ui/screens/signup_screen/signup_screen.dart';
 import 'package:fuelmanager/utils/image_handler.dart';
@@ -49,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey _loginLoader = GlobalKey();
+    // final GlobalKey _loginLoader = GlobalKey();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -201,16 +200,22 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     LoaderDialog.showLoadingDialog("Logging in");
-    final status = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user)
-        .get()
-        .then((value) => value.exists);
+    try {
+      final status = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user)
+          .get()
+          .then((value) => value.exists);
 
-    if (status == false) {
+      if (status == false) {
+        Get.back();
+        customErrorMessage("Error Login", "Username tidak terdaftar!");
+        return LoginStatus.failedAccountNotExist;
+      }
+    } catch (e) {
       Get.back();
-      customErrorMessage("Error Login", "Username tidak terdaftar!");
-      return LoginStatus.failedAccountNotExist;
+      customErrorMessage("Error", e.toString());
+      return LoginStatus.failedBadConnection;
     }
 
     final email = await FirebaseFirestore.instance

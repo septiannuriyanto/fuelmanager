@@ -10,8 +10,28 @@ class AppUserData {
   String? email;
   String? role;
   String? company;
+  String? imgUrl;
+  String? token;
 
-  AppUserData({this.ID, this.name, this.email, this.role, this.company});
+  AppUserData({
+    this.ID,
+    this.name,
+    this.email,
+    this.role,
+    this.company,
+    this.imgUrl,
+    this.token,
+  });
+
+  AppUserData.fromRegistrationSnapshot(DocumentSnapshot ds, String newRole) {
+    ID = ds.get('username');
+    name = ds.get('name');
+    email = ds.get('email');
+    company = ds.get('company');
+    imgUrl = ds.get('image');
+    token = ds.get('dToken');
+    role = newRole;
+  }
 
   AppUserData.fromDocumentSnapshot(DocumentSnapshot ds) {
     ID = ds.id;
@@ -19,6 +39,8 @@ class AppUserData {
     email = ds.get('email');
     role = ds.get('role');
     company = ds.get('company');
+    imgUrl = ds.get('image');
+    token = ds.get('dToken');
   }
 
   static List<String> toList(AppUserData appUserData) => [
@@ -27,6 +49,8 @@ class AppUserData {
         appUserData.email!,
         appUserData.role!,
         appUserData.company!,
+        appUserData.imgUrl!,
+        appUserData.token!,
       ];
 
   static Map<String, String> toMap(AppUserData appUserData) => {
@@ -35,6 +59,8 @@ class AppUserData {
         'email': appUserData.email!,
         'role': appUserData.role!,
         'company': appUserData.company!,
+        'image': appUserData.imgUrl!,
+        'dToken': appUserData.token!,
       };
   static Map<String, String> toRegistrationMap(AppUserData appUserData) => {
         'username': appUserData.ID!,
@@ -42,6 +68,8 @@ class AppUserData {
         'email': appUserData.email!,
         'role': appUserData.role!,
         'company': appUserData.company!,
+        'image': appUserData.imgUrl!,
+        'dToken': appUserData.token!,
       };
 
   static AppUserData? fromSharedPreferences(SharedPreferences prefs) {
@@ -52,6 +80,8 @@ class AppUserData {
       email: prefList[2],
       role: prefList[3],
       company: prefList[4],
+      imgUrl: prefList[5],
+      token: prefList[6],
     );
   }
 
@@ -77,59 +107,99 @@ class AppUserData {
 }
 
 class AppUserCredential {
-  bool? admin_menu;
-  bool? issuing_ext;
-  bool? receive_do;
-  bool? request_ext;
-  bool? sonding_fs;
-  bool? filter_replace;
+  final bool admin_menu;
+  final bool daily_report;
+  final bool filter_replace;
+  final bool ft_readiness;
+  final bool inspeksi_infra;
+  final bool issuing_ext;
+  final bool receive_do;
+  final bool request_ext;
+  final bool ritasi_fs;
+  final bool sonding_fs;
+  final bool stock_taking;
+  final bool receiving_menu;
+  final bool storing_menu;
+  final bool issuing_menu;
 
   AppUserCredential({
-    this.admin_menu,
-    this.issuing_ext,
-    this.receive_do,
-    this.request_ext,
-    this.sonding_fs,
-    this.filter_replace,
+    required this.admin_menu,
+    required this.issuing_ext,
+    required this.receive_do,
+    required this.request_ext,
+    required this.sonding_fs,
+    required this.filter_replace,
+    required this.daily_report,
+    required this.ft_readiness,
+    required this.inspeksi_infra,
+    required this.ritasi_fs,
+    required this.stock_taking,
+    required this.issuing_menu,
+    required this.receiving_menu,
+    required this.storing_menu,
   });
 
-  AppUserCredential.fromDocumentSnapshot(DocumentSnapshot ds) {
-    admin_menu = ds.get('admin_menu');
-    issuing_ext = ds.get('issuing_ext');
-    receive_do = ds.get('receive_do');
-    request_ext = ds.get('request_ext');
-    sonding_fs = ds.get('sonding_fs');
-    filter_replace = ds.get('filter_replace');
+  factory AppUserCredential.fromDocumentSnapshot(DocumentSnapshot ds) {
+    return AppUserCredential(
+        admin_menu: ds.get('admin_menu'),
+        issuing_ext: ds.get('issuing_ext'),
+        receive_do: ds.get('receive_do'),
+        request_ext: ds.get('request_ext'),
+        sonding_fs: ds.get('sonding_fs'),
+        filter_replace: ds.get('filter_replace'),
+        daily_report: ds.get('daily_report'),
+        ft_readiness: ds.get('ft_readiness'),
+        inspeksi_infra: ds.get('inspeksi_infra'),
+        ritasi_fs: ds.get('ritasi_ft'),
+        stock_taking: ds.get('stock_taking'),
+        issuing_menu: ds.get('issuing_menu'),
+        storing_menu: ds.get('storing_menu'),
+        receiving_menu: ds.get('receiving_menu'));
   }
 
   static List<String> toList(AppUserCredential creds) => [
         creds.admin_menu.toString(),
+        creds.daily_report.toString(),
+        creds.filter_replace.toString(),
+        creds.ft_readiness.toString(),
+        creds.inspeksi_infra.toString(),
         creds.issuing_ext.toString(),
         creds.receive_do.toString(),
         creds.request_ext.toString(),
+        creds.ritasi_fs.toString(),
         creds.sonding_fs.toString(),
-        creds.filter_replace.toString(),
+        creds.stock_taking.toString(),
+        creds.receiving_menu.toString(),
+        creds.storing_menu.toString(),
+        creds.issuing_menu.toString(),
       ];
 
   static Map<String, String> toMap(AppUserCredential creds) => {
-        'admin_menu': creds.admin_menu!.toString(),
-        'issuing_ext': creds.issuing_ext!.toString(),
-        'receive_do': creds.receive_do!.toString(),
-        'request_ext': creds.request_ext!.toString(),
-        'sonding_fs': creds.sonding_fs!.toString(),
+        'admin_menu': creds.admin_menu.toString(),
+        'issuing_ext': creds.issuing_ext.toString(),
+        'receive_do': creds.receive_do.toString(),
+        'request_ext': creds.request_ext.toString(),
+        'sonding_fs': creds.sonding_fs.toString(),
         'filter_replace': creds.filter_replace.toString(),
       };
 
-  static AppUserCredential fromSharedPreferences(SharedPreferences prefs) {
+  factory AppUserCredential.fromSharedPreferences(SharedPreferences prefs) {
     final prefList = prefs.getStringList('credentials');
     return AppUserCredential(
-      admin_menu: prefList![0] == 'true',
-      issuing_ext: prefList[1] == 'true',
-      receive_do: prefList[2] == 'true',
-      request_ext: prefList[3] == 'true',
-      sonding_fs: prefList[4] == 'true',
-      filter_replace: prefList[5] == 'true',
-    );
+        admin_menu: prefList![0] == 'true',
+        daily_report: prefList[1] == 'true',
+        filter_replace: prefList[2] == 'true',
+        ft_readiness: prefList[3] == 'true',
+        inspeksi_infra: prefList[4] == 'true',
+        issuing_ext: prefList[5] == 'true',
+        receive_do: prefList[6] == 'true',
+        request_ext: prefList[7] == 'true',
+        ritasi_fs: prefList[8] == 'true',
+        sonding_fs: prefList[9] == 'true',
+        stock_taking: prefList[10] == 'true',
+        receiving_menu: prefList[11] == 'true',
+        storing_menu: prefList[12] == 'true',
+        issuing_menu: prefList[13] == 'true');
   }
 
   static Future saveFromDStoSharedPreferences(DocumentSnapshot ds) async {
@@ -153,5 +223,7 @@ class NewUserModel {
         'role': newUserModel.appUserData.role!,
         'company': newUserModel.appUserData.company!,
         'password': newUserModel.password,
+        'dToken': newUserModel.appUserData.token!,
+        'image': newUserModel.appUserData.imgUrl!,
       };
 }

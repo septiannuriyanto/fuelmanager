@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fuelmanager/widgets/custom_textfield.dart';
 import 'package:get/get.dart';
 
 import '../ui/screens/login_screen/password_obscurer.dart';
@@ -70,51 +71,37 @@ class CustomLoginTextField extends StatelessWidget {
   }
 }
 
-class CustomPasswordField extends StatelessWidget {
-  const CustomPasswordField(
-      {Key? key,
-      this.prefixIcon,
-      this.controller,
-      this.validator,
-      this.textEditingController,
-      this.hintText,
-      this.labelText,
-      this.autovalidateMode,
-      this.keyboardType,
-      this.onSaved,
-      this.onChanged})
-      : super(key: key);
-  final PassObscurerController? controller;
-  final TextEditingController? textEditingController;
-  final String? hintText, labelText;
-  final Icon? prefixIcon;
-  final String? Function(String?)? validator;
-  final AutovalidateMode? autovalidateMode;
-  final TextInputType? keyboardType;
-  final void Function(String?)? onSaved;
-  final void Function(String?)? onChanged;
+class CustomPasswordField extends StatefulWidget {
+  CustomPasswordField({
+    this.onChanged,
+    this.hint,
+  });
+
+  Function(String?)? onChanged;
+  String? hint;
+
+  @override
+  State<CustomPasswordField> createState() => _CustomPasswordFieldState();
+}
+
+class _CustomPasswordFieldState extends State<CustomPasswordField> {
+  bool isObscured = true;
+
+  Icon visibility = Icon(Icons.visibility);
+  Icon invisibility = Icon(Icons.visibility_off);
 
   @override
   Widget build(BuildContext context) {
-    return GetX<PassObscurerController>(
-      builder: (_) => TextFormField(
-        autovalidateMode: autovalidateMode,
-        keyboardType: keyboardType,
-        validator: validator,
-        obscureText: controller!.hidePassword.value,
-        controller: textEditingController,
-        decoration: kTextFieldDecoration.copyWith(
-            prefixIcon: prefixIcon,
-            hintText: hintText,
-            labelText: labelText,
-            suffixIcon: InkWell(
-                child: controller!.hidePassword.value
-                    ? const Icon(Icons.visibility)
-                    : const Icon(Icons.visibility_off),
-                onTap: () => controller!.obscureTextSwitch())),
-        onSaved: onSaved,
-        onChanged: onChanged,
-      ),
+    return CustomTextField(
+      obscureText: isObscured,
+      hint: widget.hint,
+      onFieldChanged: widget.onChanged,
+      suffixIcon: IconButton(
+          onPressed: () {
+            isObscured = !isObscured;
+            setState(() {});
+          },
+          icon: isObscured ? visibility : invisibility),
     );
   }
 }

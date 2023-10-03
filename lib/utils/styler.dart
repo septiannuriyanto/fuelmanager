@@ -8,6 +8,10 @@ sfb() {
   return TextStyle(fontWeight: FontWeight.bold);
 }
 
+sfc(Color color) {
+  return TextStyle(color: color);
+}
+
 sfbs(double size) {
   return TextStyle(fontWeight: FontWeight.bold, fontSize: size);
 }

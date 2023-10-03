@@ -62,7 +62,11 @@ dependencies:
   currency_text_input_formatter: ^2.1.10
   easy_mask: ^2.0.1
   grouped_list: ^5.1.2
-
+  firebase_messaging: ^14.6.8
+  flutter_local_notifications: ^15.1.1
+  http: ^0.13.6
+  connectivity_plus: ^4.0.2
+  internet_connection_checker: ^1.0.0+1
 
 dev_dependencies:
   flutter_test:
@@ -97,13 +101,18 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/fuelmanager.png
-    - assets/images/infrastructure.png
-    - assets/images/sonding.jpg
-    - assets/images/filter.jpeg
-    - assets/images/external.jpg
     - assets/images/menu.svg
     - assets/images/menubar.svg
+    - assets/images/fuelmanager.png
+    - assets/images/ritation.png
+    - assets/images/infrastructure.png
+    - assets/images/readiness.png
+    - assets/images/sonding.png
+    - assets/images/stocktaking.png
+    - assets/images/filter.jpeg 
+    - assets/images/external.jpg
+    - assets/images/report.png
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

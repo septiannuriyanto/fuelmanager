@@ -153,16 +153,20 @@ class _ApproveUserScreenState extends State<ApproveUserScreen> {
                                 ),
                               ));
                               if (status != null) {
-                                AppUserData newUser = AppUserData(
-                                  ID: snapshot.data!.docs[index]
-                                      .get('username'),
-                                  name: snapshot.data!.docs[index].get('name'),
-                                  email:
-                                      snapshot.data!.docs[index].get('email'),
-                                  company:
-                                      snapshot.data!.docs[index].get('company'),
-                                  role: status,
-                                );
+                                AppUserData newUser =
+                                    AppUserData.fromRegistrationSnapshot(
+                                        snapshot.data!.docs[index], status);
+
+                                // AppUserData(
+                                //   ID: snapshot.data!.docs[index]
+                                //       .get('username'),
+                                //   name: snapshot.data!.docs[index].get('name'),
+                                //   email:
+                                //       snapshot.data!.docs[index].get('email'),
+                                //   company:
+                                //       snapshot.data!.docs[index].get('company'),
+                                //   role: status,
+                                // );
                                 String password =
                                     snapshot.data!.docs[index].get('password');
 
@@ -179,7 +183,12 @@ class _ApproveUserScreenState extends State<ApproveUserScreen> {
                                 }
 
                                 //daftarkan di tabel user
-                                FirebaseDB.injectUser(newUser);
+                                try {
+                                  FirebaseDB.injectUser(newUser);
+                                } catch (e) {
+                                  customErrorMessage(
+                                      "Error Registering user", e.toString());
+                                }
 
                                 //delete user dari tabel new registrant
                                 String deleteWithStatus = await deleteUser(

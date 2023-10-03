@@ -11,6 +11,9 @@ Akan segera diimprove untuk UI nya agar lebih menarik.
 Septian Nuriyanto
 
 ## Changelog
+ 
+#### 3 Oktober 2023
+Fitur Input Ritasi >> Full Implemented
 
 #### 27 September 2023
 Fitur Inspeksi Infrastruktur >> Full Implemented

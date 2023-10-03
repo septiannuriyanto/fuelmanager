@@ -3,15 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PhotoContainer extends StatelessWidget {
-  ImageProvider imageProvider;
-  double height;
+  final ImageProvider imageProvider;
+  final double height;
+  final double? width;
 
-  PhotoContainer({required this.imageProvider, required this.height});
+  PhotoContainer({
+    required this.imageProvider,
+    required this.height,
+    this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Get.width,
+      width: width ?? Get.width,
       height: height,
       color: Colors.black,
       child: InkWell(

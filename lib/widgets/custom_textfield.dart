@@ -63,6 +63,9 @@ class CustomTextField extends StatelessWidget {
   Widget? prefIcon;
   Widget? suffixIcon;
   bool? readonly;
+  TextInputAction? textInputAction;
+  TextCapitalization? textCapitalization;
+  bool? obscureText;
 
   CustomTextField({
     this.labelText,
@@ -83,6 +86,9 @@ class CustomTextField extends StatelessWidget {
     this.suffixIcon,
     this.readonly,
     this.showSuffixIcon,
+    this.textInputAction,
+    this.textCapitalization,
+    this.obscureText,
   });
 
   @override
@@ -98,6 +104,9 @@ class CustomTextField extends StatelessWidget {
             : 40,
         child: Center(
           child: TextFormField(
+            obscureText: obscureText ?? false,
+            textCapitalization: textCapitalization ?? TextCapitalization.none,
+            textInputAction: textInputAction ?? TextInputAction.next,
             readOnly: readonly ?? false,
             inputFormatters: inputFormatter,
             keyboardType: textInputType ?? TextInputType.name,
@@ -111,6 +120,7 @@ class CustomTextField extends StatelessWidget {
             controller: textEditingController,
             cursorColor: TokpedGreen,
             decoration: InputDecoration(
+              label: hint == null ? null : Text(hint!),
               prefixIcon: prefIcon ??
                   const SizedBox(
                     width: 20,
