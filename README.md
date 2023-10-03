@@ -12,7 +12,7 @@ Septian Nuriyanto
 
 ## Changelog
  
-#### 3 Oktober 2023
+#### 3 Oktober 2023 Release v1.1.0
 Fitur Input Ritasi >> Full Implemented
 
 #### 27 September 2023
