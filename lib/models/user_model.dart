@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fuelmanager/services/fcm.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -99,6 +100,16 @@ class AppUserData {
     appUserData = await AppUserData.fromSharedPreferences(prefs);
     appUserCredential = await AppUserCredential.fromSharedPreferences(prefs);
 
+    // Update token to application server.
+    prefs = await SharedPreferences.getInstance();
+    prefs.setString('dToken', FirebaseMessagingApi.fcmToken!);
+    final prefList = prefs.getStringList('userdata');
+    final uid = prefList![0];
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .update({"dToken": FirebaseMessagingApi.fcmToken!});
+
     Get.offAll(() => HomeScreen(
           appUserCredential: appUserCredential,
           appUserData: appUserData,
@@ -121,6 +132,7 @@ class AppUserCredential {
   final bool receiving_menu;
   final bool storing_menu;
   final bool issuing_menu;
+  final bool administration_menu;
 
   AppUserCredential({
     required this.admin_menu,
@@ -137,6 +149,7 @@ class AppUserCredential {
     required this.issuing_menu,
     required this.receiving_menu,
     required this.storing_menu,
+    required this.administration_menu,
   });
 
   factory AppUserCredential.fromDocumentSnapshot(DocumentSnapshot ds) {
@@ -154,7 +167,8 @@ class AppUserCredential {
         stock_taking: ds.get('stock_taking'),
         issuing_menu: ds.get('issuing_menu'),
         storing_menu: ds.get('storing_menu'),
-        receiving_menu: ds.get('receiving_menu'));
+        receiving_menu: ds.get('receiving_menu'),
+        administration_menu: ds.get('administration_menu') ?? false);
   }
 
   static List<String> toList(AppUserCredential creds) => [
@@ -172,6 +186,7 @@ class AppUserCredential {
         creds.receiving_menu.toString(),
         creds.storing_menu.toString(),
         creds.issuing_menu.toString(),
+        creds.administration_menu.toString()
       ];
 
   static Map<String, String> toMap(AppUserCredential creds) => {
@@ -186,20 +201,22 @@ class AppUserCredential {
   factory AppUserCredential.fromSharedPreferences(SharedPreferences prefs) {
     final prefList = prefs.getStringList('credentials');
     return AppUserCredential(
-        admin_menu: prefList![0] == 'true',
-        daily_report: prefList[1] == 'true',
-        filter_replace: prefList[2] == 'true',
-        ft_readiness: prefList[3] == 'true',
-        inspeksi_infra: prefList[4] == 'true',
-        issuing_ext: prefList[5] == 'true',
-        receive_do: prefList[6] == 'true',
-        request_ext: prefList[7] == 'true',
-        ritasi_fs: prefList[8] == 'true',
-        sonding_fs: prefList[9] == 'true',
-        stock_taking: prefList[10] == 'true',
-        receiving_menu: prefList[11] == 'true',
-        storing_menu: prefList[12] == 'true',
-        issuing_menu: prefList[13] == 'true');
+      admin_menu: prefList![0] == 'true',
+      daily_report: prefList[1] == 'true',
+      filter_replace: prefList[2] == 'true',
+      ft_readiness: prefList[3] == 'true',
+      inspeksi_infra: prefList[4] == 'true',
+      issuing_ext: prefList[5] == 'true',
+      receive_do: prefList[6] == 'true',
+      request_ext: prefList[7] == 'true',
+      ritasi_fs: prefList[8] == 'true',
+      sonding_fs: prefList[9] == 'true',
+      stock_taking: prefList[10] == 'true',
+      receiving_menu: prefList[11] == 'true',
+      storing_menu: prefList[12] == 'true',
+      issuing_menu: prefList[13] == 'true',
+      administration_menu: prefList[14] == 'true',
+    );
   }
 
   static Future saveFromDStoSharedPreferences(DocumentSnapshot ds) async {

@@ -25,11 +25,13 @@ var numberWithDecimals =
 //CURRENCY FORMATTER
 //flutter pub add currency_text_input_formatter
 final CurrencyTextInputFormatter rupiahFormat =
-    CurrencyTextInputFormatter(locale: 'id', decimalDigits: 0, symbol: 'IDR');
+    CurrencyTextInputFormatter.currency(
+        locale: 'id', decimalDigits: 0, symbol: 'IDR');
 final CurrencyTextInputFormatter dollarFormat =
-    CurrencyTextInputFormatter(locale: 'us', decimalDigits: 0, symbol: '\$.');
+    CurrencyTextInputFormatter.currency(
+        locale: 'us', decimalDigits: 0, symbol: '\$.');
 final CurrencyTextInputFormatter neutralNumberFormat =
-    CurrencyTextInputFormatter(
+    CurrencyTextInputFormatter.currency(
         locale: 'id', decimalDigits: 2, symbol: '', enableNegative: false);
 
 final dollarMask = TextInputMask(

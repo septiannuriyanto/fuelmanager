@@ -47,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<bool> receivingVisibility = [];
   List<bool> storingVisibility = [];
   List<bool> issuingVisibility = [];
+  List<bool> administrationVisibility = [];
 
   @override
   void initState() {
@@ -64,25 +65,26 @@ class _HomeScreenState extends State<HomeScreen> {
     receivingVisibility.add(widget.appUserCredential!.ritasi_fs);
 
     //adding visibility for storing menu
-    storingVisibility.add(widget.appUserCredential!.filter_replace);
-    storingVisibility.add(widget.appUserCredential!.inspeksi_infra);
     storingVisibility.add(widget.appUserCredential!.stock_taking);
 
     //adding visibility for issuing menu
     issuingVisibility.add(widget.appUserCredential!.request_ext);
-    issuingVisibility.add(widget.appUserCredential!.ft_readiness);
     issuingVisibility.add(widget.appUserCredential!.daily_report);
 
-    // print(widget.appUserData!.ID!);
+    //adding visibility for administration menu
+    administrationVisibility.add(widget.appUserCredential!.filter_replace);
+    administrationVisibility.add(widget.appUserCredential!.inspeksi_infra);
+    administrationVisibility.add(widget.appUserCredential!.ft_readiness);
+    administrationVisibility.add(widget.appUserCredential!.administration_menu);
 
-    String token = await prefs!.getString('dToken')!;
+    // print(widget.appUserData!.ID!);
 
     // final mapOf = HashMap.of({"token": token, "timestamp": DateTime.now()});
 
     await FirebaseFirestore.instance
         .collection('users')
         .doc(widget.appUserData!.ID!)
-        .update({'dToken': token});
+        .update({'dToken': FirebaseMessagingApi.fcmToken!});
     isLoaded = true;
     setState(() {});
   }
@@ -443,6 +445,107 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         ),
                                                         onTap:
                                                             issuingMenu[index]
+                                                                .ontap),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: widget
+                                      .appUserCredential!.administration_menu,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Container(
+                                      height: Get.width * 0.7,
+                                      width: Get.width,
+                                      decoration: BoxDecoration(
+                                          borderRadius: rads(12),
+                                          border:
+                                              Border.all(color: kPrimaryColor)),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              "Administration",
+                                              style: defaultBold,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: Get.width * 0.5,
+                                            width: Get.width,
+                                            child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount:
+                                                  administrationMenu.length,
+                                              itemBuilder: (context, index) {
+                                                return Visibility(
+                                                  visible:
+                                                      administrationVisibility[
+                                                          index],
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: GestureDetector(
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.grey
+                                                                  .shade100,
+                                                              borderRadius:
+                                                                  rads(12),
+                                                              boxShadow:
+                                                                  subtleShadow),
+                                                          height: 100,
+                                                          width: 100,
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                rads(12),
+                                                            child: Column(
+                                                              children: [
+                                                                Expanded(
+                                                                    flex: 3,
+                                                                    child: administrationMenu[index]
+                                                                            .img ??
+                                                                        Container(
+                                                                          color:
+                                                                              kSecondaryColor,
+                                                                          child:
+                                                                              administrationMenu[index].img,
+                                                                        )),
+                                                                Expanded(
+                                                                    child:
+                                                                        Container(
+                                                                  color:
+                                                                      kThirdColor,
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                      administrationMenu[
+                                                                              index]
+                                                                          .desc!,
+                                                                      style: txt12.copyWith(
+                                                                          color:
+                                                                              Colors.black),
+                                                                    ),
+                                                                  ),
+                                                                )),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        onTap:
+                                                            administrationMenu[
+                                                                    index]
                                                                 .ontap),
                                                   ),
                                                 );
